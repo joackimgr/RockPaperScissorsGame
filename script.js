@@ -41,6 +41,26 @@ function playRound(humanChoice, computerChoice) {
   }
 }
 
+function countScore(result) {
+  if (result === "human") {
+    hmnScore++;
+  } else if (result === "computer") {
+    cmpScore++;
+  }
+}
+
+function displayScore() {
+  scoreBoard.textContent = `You ${hmnScore} - Computer ${cmpScore}`;
+}
+
+function checkWinner() {
+    if (hmnScore === 5) {
+    h3.textContent = `Human wins with the score of ${hmnScore}!`;
+  } else if (cmpScore === 5) {
+    h3.textContent = `Computer wins with the score of ${cmpScore}!`;
+  }
+}
+
 let btns = document.querySelectorAll("button");
 btns.forEach((button) => button.addEventListener("click", () => {
   let human;
@@ -52,8 +72,14 @@ btns.forEach((button) => button.addEventListener("click", () => {
     human = "scissors";
   }
   let comp = getComputerChoice();
-  playRound(human, comp);
+  let result = playRound(human, comp);
+  countScore(result);
+  displayScore(); 
+  checkWinner();
 }));
 
 let res = document.querySelector(".results");
 let h3 = document.createElement("h3");
+let scoreBoard = document.querySelector(".scoreboard");
+let hmnScore = 0;
+let cmpScore = 0;
